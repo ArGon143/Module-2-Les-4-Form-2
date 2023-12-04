@@ -7,21 +7,21 @@ import { yupResolver } from '@hookform/resolvers/yup';
 const fieldsSchema = yup.object().shape({
 	email: yup
 		.string()
-		.required()
+		.required('Поле адреса электронной почты не заполнено')
 		.matches(
 			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 			'Некоректный адрес электронной почты',
 		),
 	password: yup
 		.string()
-		.required()
+		.required('Поле пароля не заполнено')
 		.matches(
 			/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{6,}$/,
 			'Пароль должен состоять из не менее 6 символов, содержать латинские буквы верхнего и нижнего регистра, по крайней мере один специальный символ и одну цифру',
 		),
 	repeatPassword: yup
 		.string()
-		.required()
+		.required('Поле подтверждения пароля не заполнено')
 		.oneOf([yup.ref('password'), null], 'Пароли не совпадают'),
 });
 
@@ -94,6 +94,7 @@ export const App = () => {
 						{...register('repeatPassword')}
 					/>
 					<button
+						name="subButton"
 						className={styles.subButton}
 						type="submit"
 						disabled={
